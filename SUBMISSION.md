@@ -177,3 +177,16 @@ Baserow (CR created and Approved) -> sync (.sdoc regenerated) -> Git (commit) ->
 - Baserow's API returns internal field_XXXX names; the sync script maps them back to human names.
 - The RTM and coverage report are computed, never typed.
 - Obsolete requirement IDs are never reused: when a requirement is removed, its ID stays Obsolete and a new ID is issued for the replacement.
+
+
+## Known Limitations
+
+- **Live CR demonstration (Task 6):** The Baserow web UI was unable to
+  complete row edits on 2026-09-25 (server rejected writes). The change
+  request was therefore documented rather than executed live. The pipeline
+  itself is validated: every Approved requirement flows from Baserow to
+  .sdoc to Git to the RTM.
+- **Public tunnel URL (Task 3):** A quick tunnel URL is used because the
+  named tunnel could not be routed from the available Cloudflare account.
+  The named tunnel connects successfully (http2 protocol) but public
+  hostname configuration requires dashboard access not available here.

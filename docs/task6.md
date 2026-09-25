@@ -56,3 +56,19 @@ and the RTM as follows:
   Status = Approved, Requirement = REQ-001, Impact describes affected need,
   elements, and verification.
 - A second row Remove session timeout demonstrates the Rejected path.
+
+## Note on Live Demonstration
+
+The end-to-end execution of this change request was documented rather than
+performed live, due to a Baserow UI connection issue preventing row edits
+from the browser and API restrictions on discovering the numeric option id
+for the Obsolete status.
+
+The pipeline itself is validated end-to-end by Tasks 4 and 5: every Approved
+requirement in Baserow is written to .sdoc files by sync.py, committed to
+Git, and appears in the RTM. Applying the same flow to the CR's effect on
+REQ-001 would follow an identical path.
+
+The ChangeRequest row "Add SSO support to login" is present in Baserow with
+Status = Approved and its impact assessment is recorded above. The state
+diagram documents the states and transitions the CR would pass through.
