@@ -1,0 +1,7 @@
+.env
+backups/
+cloudflared.log
+sync.log
+__pycache__/
+*.pyc
+output/

@@ -1,0 +1,23 @@
+[DOCUMENT]
+TITLE: Session timeout
+
+[SECTION]
+TITLE: Stakeholder Need
+
+[REQUIREMENT]
+UID: NEED-2
+TITLE: Session timeout
+STATEMENT: Idle sessions must expire after 15 minutes.
+PRIORITY: Should
+RATIONALE: Reduces risk of unauthorized access on shared devices.
+STATUS: Proposed
+
+[REQUIREMENT]
+UID: REQ-002
+TITLE: REQ-002
+STATEMENT: The system shall expire idle sessions after 15 minutes of inactivity.
+STATUS: Approved
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-2
+

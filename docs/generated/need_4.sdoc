@@ -1,0 +1,23 @@
+[DOCUMENT]
+TITLE: \bbn
+
+[SECTION]
+TITLE: Stakeholder Need
+
+[REQUIREMENT]
+UID: NEED-4
+TITLE: \bbn
+STATEMENT: \vzshdkan\x
+PRIORITY: Must
+RATIONALE: sdfhakjld\x
+STATUS: Approved
+
+[REQUIREMENT]
+UID: REQ-001
+TITLE: REQ-001
+STATEMENT: The system shall authenticate users via username and password.
+STATUS: Approved
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-4
+

@@ -1,0 +1,23 @@
+[DOCUMENT]
+TITLE: Secure user login
+
+[SECTION]
+TITLE: Stakeholder Need
+
+[REQUIREMENT]
+UID: NEED-1
+TITLE: Secure user login
+STATEMENT: Users must be able to log in securely with a username and password.
+PRIORITY: Must
+RATIONALE: Compliance requirement; user data must be protected.
+STATUS: Proposed
+
+[REQUIREMENT]
+UID: REQ-001
+TITLE: REQ-001
+STATEMENT: The system shall authenticate users via username and password.
+STATUS: Approved
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-1
+
