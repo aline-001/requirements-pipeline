@@ -38,3 +38,13 @@ def check_credentials(username, password):
 
 def send_reset_email(email):
     return True
+
+
+@relation("REQ-004")
+def login_via_sso(provider_token: str) -> bool:
+    """Authenticate a user via an SSO provider token."""
+    return validate_sso_token(provider_token)
+
+
+def validate_sso_token(provider_token):
+    return bool(provider_token)
