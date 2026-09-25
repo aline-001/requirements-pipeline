@@ -31,6 +31,8 @@ REQ_FIELDS = {
     "Type": "field_6716",
     "Status": "field_6717",
     "Need": "field_6718",
+    "Allocations": "field_6723",
+    "Verifications": "field_6729",
 }
 
 def fetch_table(table_id):
@@ -128,12 +130,33 @@ def write_sdoc(needs, reqs, outdir):
             content += f"STATEMENT: {r.get('Statement', '')}\n"
             content += f"STATUS: {status}\n"
             content += "RELATIONS:\n"
-            content += f"- TYPE: Parent\n  VALUE: NEED-{nid}\n\n"
+            content += f"- TYPE: Parent\n  VALUE: NEED-{nid}\n"
+            allocs = get_link_ids(r.get("Allocations"))
+            for aid in allocs:
+                content += f"- TYPE: AllocatedTo\n  VALUE: ELEM-{aid}\n"
+            verifs = get_link_ids(r.get("Verifications"))
+            for vid in verifs:
+                content += f"- TYPE: VerifiedBy\n  VALUE: VER-{vid}\n"
+            content += "\n"
 
         (Path(outdir) / f"need_{nid}.sdoc").write_text(content)
         written += 1
 
     return written
+
+def mark_baselined(req_ids, approved_id, baselined_id):
+    """After successful sync, mark requirements as Baselined in Baserow."""
+    hdrs = {"Authorization": f"Token {BASEROW_TOKEN}", "Content-Type": "application/json"}
+    base = f"{BASEROW_URL}/api/database/rows/table/{REQS_TABLE}/"
+    for rid_baserow, req_uid in req_ids:
+        body = json.dumps({"field_6717": baselined_id}).encode()
+        req = urllib.request.Request(base + f"{rid_baserow}/", data=body, method="PATCH", headers=hdrs)
+        try:
+            urllib.request.urlopen(req, timeout=30)
+            print(f"  Marked {req_uid} as Baselined")
+        except Exception as e:
+            print(f"  WARN: could not mark {req_uid} as Baselined: {e}")
+
 
 def main():
     if not BASEROW_TOKEN:
@@ -161,6 +184,34 @@ def main():
 
     count = write_sdoc(needs, reqs, OUT_DIR)
     print(f"Wrote {count} .sdoc files to {OUT_DIR}")
+
+    # Optionally mark baselined (disabled by default; set MARK_BASELINED=1)
+    if os.environ.get("MARK_BASELINED") == "1":
+        # We need the Baselined option id. Fetch a Baselined row if one exists.
+        # Fallback: use Approved id if Baselined unknown — not ideal, warn.
+        print("MARK_BASELINED requested — looking up Baselined option id...")
+        try:
+            sample = fetch_table(REQS_TABLE)
+            baselined_id = None
+            for r in sample:
+                st = r.get("field_6717")
+                if isinstance(st, dict) and st.get("value") == "Baselined":
+                    baselined_id = st["id"]
+                    break
+            if baselined_id is None:
+                print("  WARN: no Baselined option found in any row — skipping mark step.")
+                print("  In Baserow UI, ensure the Status field has a 'Baselined' option and one row uses it.")
+            else:
+                # Build list of (baserow_row_id, req_uid) for approved reqs we wrote
+                targets = []
+                for r in raw_reqs:
+                    rn = rename_row(r, REQ_FIELDS)
+                    st = get_select_value(rn.get("Status"))
+                    if st in ("Approved", "Baselined") and rn.get("ReqID"):
+                        targets.append((r["id"], rn["ReqID"]))
+                mark_baselined(targets, None, baselined_id)
+        except Exception as e:
+            print(f"  WARN: mark_baselined failed: {e}")
 
 if __name__ == "__main__":
     main()

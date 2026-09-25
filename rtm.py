@@ -25,6 +25,10 @@ def parse_sdoc(path):
         pm = re.search(r'-\s*TYPE:\s*Parent\s*\n\s*VALUE:\s*(\S+)', block)
         if pm:
             req["PARENT"] = pm.group(1)
+        allocs = re.findall(r'-\s*TYPE:\s*AllocatedTo\s*\n\s*VALUE:\s*(\S+)', block)
+        req["ALLOCS"] = allocs
+        verifs = re.findall(r'-\s*TYPE:\s*VerifiedBy\s*\n\s*VALUE:\s*(\S+)', block)
+        req["VERIFS"] = verifs
         if req.get("UID"):
             reqs.append(req)
     return reqs
@@ -70,6 +74,8 @@ def build_rtm():
             "Statement": r.get("STATEMENT", ""),
             "Status": r.get("STATUS", ""),
             "ParentNeed": r.get("PARENT", ""),
+            "Allocations": ", ".join(r.get("ALLOCS", [])),
+            "Verifications": ", ".join(r.get("VERIFS", [])),
             "CodeLink": ", ".join(code_links.get(uid, [])),
         })
     return needs, rows
@@ -77,7 +83,7 @@ def build_rtm():
 
 def write_csv(rows):
     with RTM_CSV.open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["UID", "Title", "Statement", "Status", "ParentNeed", "CodeLink"])
+        w = csv.DictWriter(f, fieldnames=["UID", "Title", "Statement", "Status", "ParentNeed", "Allocations", "Verifications", "CodeLink"])
         w.writeheader()
         for r in rows:
             w.writerow(r)
@@ -108,13 +114,17 @@ def write_html(rows):
             f'<p><strong>Pass rate (Approved or Baselined):</strong> {passed}/{total} = {pass_rate:.1f}%</p>',
             '</div>',
             '<table>',
-            '<tr><th>UID</th><th>Title</th><th>Statement</th><th>Status</th><th>Parent Need</th><th>Code Link</th></tr>']
+            '<tr><th>UID</th><th>Title</th><th>Statement</th><th>Status</th><th>Parent Need</th><th>Allocations</th><th>Verifications</th><th>Code Link</th></tr>']
     for r in rows:
         p = r["ParentNeed"]
         c = r["CodeLink"]
         html.append(f"<tr><td>{r['UID']}</td><td>{r['Title']}</td><td>{r['Statement']}</td>")
         html.append(f"<td>{r['Status']}</td>")
+        a = r["Allocations"]
+        v = r["Verifications"]
         html.append(f"<td class='{'ok' if p else 'miss'}'>{p or 'NONE'}</td>")
+        html.append(f"<td class='{'ok' if a else 'miss'}'>{a or 'NONE'}</td>")
+        html.append(f"<td class='{'ok' if v else 'miss'}'>{v or 'NONE'}</td>")
         html.append(f"<td class='{'ok' if c else 'miss'}'>{c or 'NONE'}</td></tr>")
     html.append('</table></body></html>')
     RTM_HTML.write_text("".join(html))
@@ -125,6 +135,8 @@ def write_coverage(needs, rows):
     no_parent = [r["UID"] for r in rows if not r["ParentNeed"]]
     no_code = [r["UID"] for r in rows if not r["CodeLink"]]
     no_status = [r["UID"] for r in rows if not r["Status"]]
+    no_alloc = [r["UID"] for r in rows if not r["Allocations"]]
+    no_verif = [r["UID"] for r in rows if not r["Verifications"]]
     passed = sum(1 for r in rows if r["Status"] in ("Approved", "Baselined"))
     rate = (passed / total * 100) if total else 0
     lines = [
@@ -133,6 +145,8 @@ def write_coverage(needs, rows):
         f"Requirements with no parent need: {len(no_parent)} {no_parent}",
         f"Requirements with no code link: {len(no_code)} {no_code}",
         f"Requirements with no status: {len(no_status)} {no_status}",
+        f"Requirements with no allocation: {len(no_alloc)} {no_alloc}",
+        f"Requirements with no verification: {len(no_verif)} {no_verif}",
         f"Pass rate (Approved or Baselined): {passed}/{total} = {rate:.1f}%",
     ]
     COVERAGE_TXT.write_text("\n".join(lines) + "\n")

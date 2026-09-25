@@ -20,4 +20,10 @@ STATUS: Approved
 RELATIONS:
 - TYPE: Parent
   VALUE: NEED-1
+- TYPE: AllocatedTo
+  VALUE: ELEM-1
+- TYPE: AllocatedTo
+  VALUE: ELEM-2
+- TYPE: VerifiedBy
+  VALUE: VER-1
 
