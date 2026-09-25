@@ -6,7 +6,7 @@
 ## Links
 
 - **Baserow instance:** http://localhost:8000 (local); public HTTPS via Cloudflare Tunnel — see Task 3.
-- **Git repository:** local Git repo at ~/requirements-pipeline (branch main, latest commit 85028f6).
+- **Git repository:** https://github.com/aline-001/requirements-pipeline (branch main).
 - **RTM:** generated as rtm.html. Also viewable at http://localhost:9000/rtm.html while the local server is running.
 
 ## Task 1 — Normalized Requirements Database
