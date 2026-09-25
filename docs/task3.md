@@ -4,7 +4,7 @@
 Cloudflare Tunnel — no DNS or TLS setup, no inbound firewall ports, automatic HTTPS.
 
 ## Public URL
-Quick tunnel: https://shade-laws-occasion-africa.trycloudflare.com
+Quick tunnel: https://gizmo-vanquish-swinging.ngrok-free.dev
 
 ## Networking Note
 WSL blocks outbound UDP 7844 (QUIC); cloudflared uses --protocol http2 (TCP 443).
@@ -44,4 +44,4 @@ Test procedure:
 - HTTPS via Cloudflare Tunnel edge (no plain HTTP exposed).
 - Separate API token "sync-script" scoped to the Requirements Engineering
   workspace with read/write permissions.
-- Public sign-up: [FILL IN AFTER RESOLVING]
+- Public sign-up: disabled. Confirmed via direct Postgres query: core_settings.allow_new_signups = false and show_admin_signup_page = false.

@@ -3,7 +3,7 @@ services:
     container_name: baserow
     image: baserow/baserow:1.32.5
     environment:
-      BASEROW_PUBLIC_URL: 'http://localhost:8000'
+      BASEROW_PUBLIC_URL: 'https://gizmo-vanquish-swinging.ngrok-free.dev'
     ports:
       - "80:80"
       - "443:443"

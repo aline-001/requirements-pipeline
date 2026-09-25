@@ -76,7 +76,7 @@ Cloudflare Tunnel. Reason: no DNS or TLS setup needed, no inbound firewall ports
 
 ### Public URL
 
-Quick tunnel: https://shade-laws-occasion-africa.trycloudflare.com (changes on restart).
+Quick tunnel: https://gizmo-vanquish-swinging.ngrok-free.dev (changes on restart).
 
 A named tunnel (baserow.aline.darho.net) was configured and connected successfully — logs show "Registered tunnel connection ... protocol=http2" — but public-hostname routing could not be finalized from the available Cloudflare dashboard account.
 
