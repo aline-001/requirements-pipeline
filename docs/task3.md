@@ -20,27 +20,28 @@ backup.sh runs pg_dump daily, prunes to last 7. Restore tested with a temporary 
 ## Deployment Diagram
 Client -> Cloudflare Edge -> cloudflared -> Baserow container -> baserow_data volume.
 
+
 ## Verification (2026-09-25)
 
-### Daily Backup
-Crontab entries:
+### Backup
+Crontab entries confirmed:
     0 3 * * *  backup.sh  ->  backups/backup.log
     15 3 * * * run_sync.sh -> sync.log
 
-backup.sh runs pg_dump inside the container using the embedded Postgres
-password from /baserow/data/.pgpass. Prunes to the last 7 backups.
+backup.sh extracts the embedded Postgres password from the container's
+/baswerow/data/.pgpass file and runs pg_dump -U baserow -h localhost -d baserow.
+Most recent backup: 14 MB SQL file at backups/baserow_20260925_145107.sql.
+Backups older than 7 are pruned.
 
-### Tested Restore
-Procedure:
-1. Created a fresh database baserow_restore_test inside the container.
-2. Piped the most recent backup into psql -d baserow_restore_test.
-3. Listed restored tables with \dt — auth_user, core_workspace,
-   database_table and other Baserow tables were present.
+### Restore Test
+Test procedure:
+1. Created fresh database baserow_restore_test inside the container.
+2. Piped the 14 MB backup into psql -d baserow_restore_test.
+3. Listed tables with \dt.
 4. Dropped baserow_restore_test.
 
-This proves the backup is usable for recovery.
-
 ### Security Settings
-- Public sign-up: disabled (allow_new_signups = False).
-- Separate API token "sync-script" with read/write scope.
-- HTTPS via Cloudflare Tunnel edge; no plain HTTP is exposed.
+- HTTPS via Cloudflare Tunnel edge (no plain HTTP exposed).
+- Separate API token "sync-script" scoped to the Requirements Engineering
+  workspace with read/write permissions.
+- Public sign-up: [FILL IN AFTER RESOLVING]
