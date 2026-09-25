@@ -1,0 +1,4 @@
+UID,Title,Statement,Status,ParentNeed,CodeLink
+REQ-001,REQ-001,The system shall authenticate users via username and password.,Approved,NEED-1,"auth.py:login, auth.py:reset_password"
+REQ-002,REQ-002,The system shall expire idle sessions after 15 minutes of inactivity.,Approved,NEED-2,auth.py:enforce_session_timeout
+REQ-003,REQ-003,The system shall allow users to reset a forgotten password via email link.,Approved,NEED-3,auth.py:reset_password

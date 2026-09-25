@@ -1,0 +1,23 @@
+[DOCUMENT]
+TITLE: Password reset
+
+[SECTION]
+TITLE: Stakeholder Need
+
+[REQUIREMENT]
+UID: NEED-3
+TITLE: Password reset
+STATEMENT: Users must be able to reset a forgotten password via email.
+PRIORITY: Must
+RATIONALE: Reduces support tickets.
+STATUS: Proposed
+
+[REQUIREMENT]
+UID: REQ-003
+TITLE: REQ-003
+STATEMENT: The system shall allow users to reset a forgotten password via email link.
+STATUS: Approved
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-3
+

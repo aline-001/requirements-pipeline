@@ -1,0 +1,6 @@
+Total stakeholder needs: 4
+Total requirements: 3
+Requirements with no parent need: 0 []
+Requirements with no code link: 0 []
+Requirements with no status: 0 []
+Pass rate (Approved or Baselined): 3/3 = 100.0%
