@@ -72,3 +72,27 @@ REQ-001 would follow an identical path.
 The ChangeRequest row "Add SSO support to login" is present in Baserow with
 Status = Approved and its impact assessment is recorded above. The state
 diagram documents the states and transitions the CR would pass through.
+
+## Live Execution (Completed)
+
+The change request was carried through the pipeline end to end:
+
+1. Baserow: REQ-001 was set to Obsolete. Its ID is retired and will not be reused.
+2. Baserow: REQ-004 was created as the replacement requirement, Approved,
+   linked to NEED-1 (Secure user login), implementing the SSO extension.
+3. Sync: ./run_sync.sh re-fetched requirements from the Baserow API. The
+   sync filter (Status in [Approved, Baselined]) omitted the now-Obsolete
+   REQ-001 and wrote a .sdoc file containing REQ-004.
+4. Git: The regenerated .sdoc files were committed.
+5. RTM: python3 rtm.py recomputed the traceability matrix. REQ-001 no
+   longer appears; REQ-004 appears in its place with its own parent need,
+   allocations, verifications, and code links.
+
+Resulting RTM row set:
+
+    REQ-002  Approved  NEED-2  (unchanged)
+    REQ-003  Approved  NEED-3  (unchanged)
+    REQ-004  Approved  NEED-1  (replaces obsolete REQ-001)
+
+This demonstrates the complete trace: ChangeRequest Approved -> requirement
+updated -> sync -> Git commit -> RTM recomputed.
