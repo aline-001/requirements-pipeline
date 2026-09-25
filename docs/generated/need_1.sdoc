@@ -13,17 +13,11 @@ RATIONALE: Compliance requirement; user data must be protected.
 STATUS: Proposed
 
 [REQUIREMENT]
-UID: REQ-001
-TITLE: REQ-001
-STATEMENT: The system shall authenticate users via username and password.
+UID: REQ-004
+TITLE: REQ-004
+STATEMENT: The system shall authenticate users via SSO in addition to username/password.
 STATUS: Approved
 RELATIONS:
 - TYPE: Parent
   VALUE: NEED-1
-- TYPE: AllocatedTo
-  VALUE: ELEM-1
-- TYPE: AllocatedTo
-  VALUE: ELEM-2
-- TYPE: VerifiedBy
-  VALUE: VER-1
 
