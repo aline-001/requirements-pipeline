@@ -72,11 +72,11 @@ Form submission -> Proposed need -> Review form -> Approved decision -> Requirem
 
 ### Deployment Method
 
-Cloudflare Tunnel. Reason: no DNS or TLS setup needed, no inbound firewall ports, HTTPS provided automatically.
+ngrok (final working method). Cloudflare Tunnel was also configured — both provide HTTPS automatically with no DNS or TLS setup, and no inbound firewall ports.
 
 ### Public URL
 
-Quick tunnel: https://gizmo-vanquish-swinging.ngrok-free.dev (changes on restart).
+Public HTTPS: https://gizmo-vanquish-swinging.ngrok-free.dev
 
 A named tunnel (baserow.aline.darho.net) was configured and connected successfully — logs show "Registered tunnel connection ... protocol=http2" — but public-hostname routing could not be finalized from the available Cloudflare dashboard account.
 
@@ -165,7 +165,7 @@ See docs/task6.md — full assessment for CR "Add SSO support to login".
 
 ### End-to-End
 
-Baserow (CR created and Approved) -> sync (.sdoc regenerated) -> Git (commit) -> RTM (recomputed). See docs/task6.md.
+Executed: (1) Baserow REQ-001 set to Obsolete, its ID retired; (2) Baserow REQ-004 created as replacement, Approved, linked to NEED-1; (3) `./run_sync.sh` re-fetched — Obsolete REQ-001 omitted, REQ-004 written to a new .sdoc; (4) Git commit `change: CR 'Add SSO support'`; (5) `python3 rtm.py` recomputed — REQ-001 gone, REQ-004 present.
 
 ## README — Reusing the Pipeline on a New Project
 
