@@ -61,7 +61,7 @@ cat > SUBMISSION.md << 'SUBMISSION_EOF'
 ### Form 1 — Submit a Need
 
 **Table:** StakeholderNeed (709)
-**Public URL:** https://baserow.darho.net/form/hK4S4mXw-oCgQjSXvValroTj4udT2_INWbGh7KcXygU
+**Public URL:** https://baserow.darho.net/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk
 
 Configured fields (all required unless noted):
 - **Title** — Short summary of the need.
@@ -78,7 +78,7 @@ Submit message: *"Thank you — your need has been submitted and will be reviewe
 ### Form 2 — Review a Need
 
 **Table:** Review (704)
-**Public URL:** https://baserow.darho.net/form/qGqeK05o89p_dXVUn9OA1fj4mb5qOYgF8v1OU8e4glg
+**Public URL:** https://baserow.darho.net/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8
 
 Configured fields (all required):
 - **Review Title**, **Decision**, **Comments**, **Reviewer**, **Need**
