@@ -1,27 +1,27 @@
 [DOCUMENT]
-TITLE: Password reset
+TITLE: Secure user login
 
 [SECTION]
 TITLE: Stakeholder Need
 
 [REQUIREMENT]
 UID: NEED-3
-TITLE: Password reset
-STATEMENT: Users must be able to reset a forgotten password via email.
+TITLE: Secure user login
+STATEMENT: Users must log in securely.
 PRIORITY: Must
-RATIONALE: Reduces support tickets.
-STATUS: Proposed
+RATIONALE: Compliance.
+STATUS: Approved
 
 [REQUIREMENT]
-UID: REQ-003
-TITLE: REQ-003
-STATEMENT: The system shall allow users to reset a forgotten password via email link.
+UID: REQ-004
+TITLE: REQ-004
+STATEMENT: The system shall authenticate users via SSO
 STATUS: Approved
 RELATIONS:
 - TYPE: Parent
   VALUE: NEED-3
 - TYPE: AllocatedTo
-  VALUE: ELEM-1
+  VALUE: Auth Subsystem
 - TYPE: VerifiedBy
-  VALUE: VER-3
+  VALUE: VER-1
 

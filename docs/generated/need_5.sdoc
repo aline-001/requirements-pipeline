@@ -1,0 +1,14 @@
+[DOCUMENT]
+TITLE: Password reset
+
+[SECTION]
+TITLE: Stakeholder Need
+
+[REQUIREMENT]
+UID: NEED-5
+TITLE: Password reset
+STATEMENT: Users must reset passwords.
+PRIORITY: Must
+RATIONALE: Support.
+STATUS: Approved
+
