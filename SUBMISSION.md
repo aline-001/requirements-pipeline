@@ -43,6 +43,7 @@ erDiagram
     REQUIREMENT ||--o{ VERIFICATION : verified_by
     REQUIREMENT ||--o{ CHANGE_REQUEST : changed_by
 
+```
 
 
 ---
@@ -153,6 +154,7 @@ flowchart TD
     G --> H[Requirement = Approved]
     H --> I[Appears in Ready to Baseline view]
 
+```
 
 
 ---
@@ -198,6 +200,7 @@ flowchart LR
     Sync --> Git[(Git Repository docs/generated)]
     Backup[backup.sh cron 03:00] -->|pg_dump| Vol
 
+```
 ---
 
 ## Task 4 — Sync to StrictDoc
@@ -249,6 +252,7 @@ sequenceDiagram
     Wrapper->>Git: docker cp to docs/generated/
     Wrapper->>Git: git add + commit + push
 
+```
 
 
 ---
@@ -304,6 +308,7 @@ sequenceDiagram
     Script->>Out: write RTM and coverage
     Dev->>Out: open rtm.html in browser
 
+```
 ---
 
 ## Task 6 — Change Requests
@@ -320,3 +325,5 @@ stateDiagram-v2
     Approved --> Implemented: requirement updated + re-synced
     Rejected --> [*]
     Implemented --> [*]
+
+```
