@@ -1,0 +1,62 @@
+erDiagram
+    STAKEHOLDER ||--o{ STAKEHOLDER_NEED : "raises"
+    STAKEHOLDER ||--o{ REVIEW : "reviews as"
+    STAKEHOLDER_NEED ||--o{ REVIEW : "is reviewed by"
+    STAKEHOLDER_NEED ||--o{ REQUIREMENT : "is refined into"
+    REQUIREMENT ||--o{ ALLOCATION : "is allocated by"
+    SYSTEM_ELEMENT ||--o{ ALLOCATION : "receives"
+    REQUIREMENT ||--o{ VERIFICATION : "is verified by"
+    REQUIREMENT ||--o{ CHANGE_REQUEST : "is changed by"
+
+    STAKEHOLDER {
+        text Name PK
+        text Role
+        text Organisation
+        text Contact
+    }
+    STAKEHOLDER_NEED {
+        autonumber id PK "NEED-id"
+        text Title
+        long_text Statement
+        single_select Priority "Must, Should, Could"
+        long_text Rationale
+        text Source
+        single_select Status "Proposed, Approved, Rejected"
+        link Stakeholder FK
+    }
+    REVIEW {
+        text Review_Title PK
+        single_select Decision "Approved, Rejected, Changes requested"
+        long_text Comments
+        link Reviewer FK "Stakeholder"
+        link Need FK "StakeholderNeed"
+    }
+    REQUIREMENT {
+        text ID PK "REQ-nnn, never reused"
+        long_text Statement
+        single_select Status "Draft, Approved, Baselined, Obsolete"
+        link StakeholderNeed FK
+    }
+    SYSTEM_ELEMENT {
+        text Name PK "ELEM-id"
+        long_text Description
+    }
+    ALLOCATION {
+        autonumber id PK
+        link Requirement FK
+        link SystemElement FK
+    }
+    VERIFICATION {
+        text Verification_ID PK "VER-n"
+        link Requirement FK
+        single_select Method "Test, Inspection, Analysis, Demonstration"
+        long_text Acceptance_Criteria
+        single_select Result "Pass, Fail, Not run"
+    }
+    CHANGE_REQUEST {
+        text Title PK
+        long_text Description
+        long_text Impact
+        single_select Status "Submitted, Approved, Rejected, Implemented"
+        link Requirement FK
+    }

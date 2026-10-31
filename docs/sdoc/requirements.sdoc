@@ -1,0 +1,75 @@
+[DOCUMENT]
+TITLE: System Requirements
+UID: DOC-REQS
+
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: REQUIREMENT
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATUS
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: False
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: RATIONALE
+    TYPE: String
+    REQUIRED: False
+  RELATIONS:
+  - TYPE: Parent
+  - TYPE: File
+
+[[SECTION]]
+TITLE: NEED-3: Secure user login
+
+[REQUIREMENT]
+UID: REQ-004
+STATUS: Approved
+STATEMENT: The system shall authenticate users via SSO
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-3
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: NEED-4: Session timeout
+
+[REQUIREMENT]
+UID: REQ-002
+STATUS: Approved
+STATEMENT: The system shall expire idle sessions after 15 minutes of inactivity.
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-4
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: Obsolete requirements
+
+[REQUIREMENT]
+UID: REQ-001
+STATUS: Obsolete
+STATEMENT: The system shall authenticate users via username and password.
+RELATIONS:
+- TYPE: Parent
+  VALUE: NEED-3
+
+[[/SECTION]]

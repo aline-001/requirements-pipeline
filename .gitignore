@@ -1,7 +1,12 @@
-.env
-backups/
-cloudflared.log
-sync.log
-__pycache__/
+*.bak
 *.pyc
+.env
+__pycache__/
+backups/
+build/
+cloudflared.log
+logs/
 output/
+site.old/
+site/
+sync.log

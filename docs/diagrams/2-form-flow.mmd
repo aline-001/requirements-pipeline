@@ -1,0 +1,16 @@
+flowchart TD
+    A["Register a Stakeholder form"] --> B[("Stakeholder")]
+    B --> C["Submit a Need form<br/>one need per submission"]
+    C --> D[("StakeholderNeed<br/>Status = Proposed")]
+    D --> E["Review a Need form<br/>one per reviewer"]
+    E --> F[("Review<br/>Decision")]
+    F --> G{"At least one Approved<br/>and no Rejected?"}
+    G -- "No" --> H["Need stays Proposed<br/>or is set to Rejected"]
+    G -- "Yes" --> I[("StakeholderNeed<br/>Status = Approved")]
+    I --> J["Engineer writes Requirement<br/>linked to the need, Status = Draft"]
+    J --> K{"Requirement approved?"}
+    K -- "No" --> J
+    K -- "Yes" --> L["Ready to Baseline view<br/>Status = Approved"]
+    L --> M["sync.py export, Pull Request"]
+    M --> N["Pull Request merged = baseline"]
+    N --> O[("Requirement<br/>Status = Baselined")]

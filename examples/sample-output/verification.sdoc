@@ -1,0 +1,63 @@
+[DOCUMENT]
+TITLE: Verification Records
+UID: DOC-VERIFICATION
+
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: VERIFICATION
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: METHOD
+    TYPE: String
+    REQUIRED: True
+  - TITLE: ACCEPTANCE_CRITERIA
+    TYPE: String
+    REQUIRED: True
+  - TITLE: RESULT
+    TYPE: String
+    REQUIRED: True
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Verifies
+
+[[SECTION]]
+TITLE: Verification results
+
+[VERIFICATION]
+UID: VER-1
+TITLE: Verification of REQ-004
+METHOD: Test
+ACCEPTANCE_CRITERIA: User signs in through the SSO provider and lands on the dashboard.
+RESULT: Pass
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-004
+  ROLE: Verifies
+
+[VERIFICATION]
+UID: VER-2
+TITLE: Verification of REQ-002
+METHOD: Test
+ACCEPTANCE_CRITERIA: After 15 min idle the next request returns 401.
+RESULT: Pass
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-002
+  ROLE: Verifies
+
+[[/SECTION]]

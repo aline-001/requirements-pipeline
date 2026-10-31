@@ -1,0 +1,19 @@
+sequenceDiagram
+    autonumber
+    participant Git as GitHub main
+    participant Pub as publish.sh
+    participant RTM as rtm.py
+    participant SD as strictdoc export
+    participant Web as rtm-site + tunnel
+    participant User as Browser
+
+    Pub->>Git: git pull main
+    Pub->>RTM: run
+    RTM->>Git: read docs/sdoc/*.sdoc (needs, requirements, elements, verification)
+    RTM->>Git: scan src/ for @relation(REQ-xxx, scope=function)
+    RTM-->>Pub: index.html (RTM), rtm.csv, coverage.txt
+    Pub->>SD: strictdoc export . (documents + source traceability)
+    SD-->>Pub: HTML documents, trace and matrix screens
+    Pub->>Web: swap in new site/ folder
+    User->>Web: https://rtm.darho.net
+    Web-->>User: RTM, coverage, StrictDoc pages (read-only)

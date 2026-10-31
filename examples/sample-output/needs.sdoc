@@ -1,0 +1,77 @@
+[DOCUMENT]
+TITLE: Stakeholder Needs
+UID: DOC-NEEDS
+
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: NEED
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATUS
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: PRIORITY
+    TYPE: String
+    REQUIRED: False
+  - TITLE: STAKEHOLDER
+    TYPE: String
+    REQUIRED: False
+  - TITLE: SOURCE
+    TYPE: String
+    REQUIRED: False
+  - TITLE: RATIONALE
+    TYPE: String
+    REQUIRED: False
+
+[[SECTION]]
+TITLE: Approved stakeholder needs
+
+[NEED]
+UID: NEED-3
+STATUS: Approved
+TITLE: Secure user login
+STATEMENT: Users must log in securely.
+PRIORITY: Must
+STAKEHOLDER: Jane Smith
+SOURCE: Security policy workshop
+RATIONALE: Compliance.
+
+[NEED]
+UID: NEED-4
+STATUS: Approved
+TITLE: Session timeout
+STATEMENT: Idle sessions must not stay open.
+PRIORITY: Should
+STAKEHOLDER: Keza Kelly
+SOURCE: IT interview
+RATIONALE: Shared lab computers.
+
+[NEED]
+UID: NEED-5
+STATUS: Approved
+TITLE: Password reset
+STATEMENT: Users must be able to reset a forgotten password.
+PRIORITY: Could
+STAKEHOLDER: David Mugisha
+SOURCE: Help-desk tickets
+RATIONALE: Reduce help-desk load.
+
+[[/SECTION]]

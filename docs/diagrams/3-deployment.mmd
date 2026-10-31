@@ -1,0 +1,18 @@
+flowchart TB
+    U["Web browser<br/>(stakeholders, reviewers, supervisor)"] -- "HTTPS only" --> CF["Cloudflare edge<br/>TLS certificates for darho.net"]
+    CF -- "tunnel, HTTP/2 outbound" --> CD
+
+    subgraph VPS["Contabo VPS, Ubuntu 24.04 (UFW: only 22/tcp open, fail2ban, SSH keys only)"]
+        CD["cloudflared<br/>systemd service"]
+        CD -- "baserow.darho.net" --> BR["Docker: baserow/baserow:1.32.5<br/>127.0.0.1:80"]
+        CD -- "rtm.darho.net" --> WS["rtm-site.service<br/>static files, 127.0.0.1:8090"]
+        BR --- VOL[("Docker volume baserow_data<br/>PostgreSQL, media")]
+        BK["backup.sh, cron 03:00<br/>pg_dump, keep 7"] -- "reads" --> BR
+        BK --> BD[("~/backups")]
+        SY["run_sync.sh, cron 06:15<br/>sync.py with database token"] -- "REST API 127.0.0.1:8000" --> BR
+        PB["publish.sh, cron every 30 min"] --> WS
+    end
+
+    SY -- "push branch + PR" --> GH["GitHub<br/>aline-001/requirements-pipeline"]
+    GH -- "git pull main" --> PB
+    BR -. "invite and reset emails" .-> SM["Brevo SMTP"]

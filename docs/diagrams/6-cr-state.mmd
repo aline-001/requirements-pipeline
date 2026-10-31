@@ -1,0 +1,17 @@
+stateDiagram-v2
+    [*] --> Submitted : Request a Change form
+    Submitted --> UnderAssessment : engineer writes impact assessment
+    UnderAssessment --> Rejected : change control board rejects
+    UnderAssessment --> Approved : change control board approves
+    Approved --> Implemented : requirement edited in Baserow, sync Pull Request merged
+    Implemented --> Closed : RTM recomputed, verification re-run
+    Rejected --> [*]
+    Closed --> [*]
+
+    state Approved {
+        [*] --> EditRequirement
+        EditRequirement --> NewID : requirement removed or replaced
+        NewID --> OldSetObsolete : old ID set to Obsolete, never reused
+        EditRequirement --> SameID : wording changed
+        SameID --> BackToApproved : status Baselined to Approved
+    }

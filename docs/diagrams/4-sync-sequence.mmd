@@ -1,0 +1,26 @@
+sequenceDiagram
+    autonumber
+    participant Cron as cron or engineer
+    participant Sync as run_sync.sh / sync.py
+    participant BR as Baserow API
+    participant SD as StrictDoc
+    participant Git as GitHub
+    participant Rev as Reviewer
+
+    Cron->>Sync: start (scheduled 06:15 or manual)
+    Sync->>Git: git pull main
+    Sync->>BR: sync.py baseline: read Requirement rows
+    Note over Sync,BR: Approved and already on main = merged
+    Sync->>BR: PATCH Status = Baselined
+    Sync->>BR: sync.py export: GET needs, requirements, elements, allocations, verifications
+    BR-->>Sync: rows (database token)
+    Sync->>Sync: check duplicate IDs, broken links, requirements with no need, removed or reused IDs
+    alt any error
+        Sync-->>Cron: exit 2, nothing written
+    else all checks pass
+        Sync->>Sync: write docs/sdoc/*.sdoc
+        Sync->>SD: strictdoc export (must parse)
+        Sync->>Git: push branch sync/timestamp, open Pull Request
+        Rev->>Git: review and merge Pull Request (baseline)
+        Note over Git,BR: next run marks the merged requirements Baselined in Baserow
+    end

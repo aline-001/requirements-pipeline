@@ -1,0 +1,15 @@
+# Read-only web server for the published RTM + StrictDoc export (site/).
+# Install:
+#   sudo cp deploy/rtm-site.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now rtm-site
+[Unit]
+Description=RTM and StrictDoc static site (read-only)
+After=network.target
+
+[Service]
+User=aline
+ExecStart=/usr/bin/python3 -m http.server 8090 --bind 127.0.0.1 --directory /home/aline/requirements-pipeline/site
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

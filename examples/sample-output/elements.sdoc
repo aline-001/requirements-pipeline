@@ -1,0 +1,60 @@
+[DOCUMENT]
+TITLE: System Elements and Allocation
+UID: DOC-ELEMENTS
+
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: ELEMENT
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: False
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Implements
+  - TYPE: File
+
+[[SECTION]]
+TITLE: System elements
+
+[ELEMENT]
+UID: ELEM-1
+TITLE: Auth Subsystem
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-004
+  ROLE: Implements
+
+[ELEMENT]
+UID: ELEM-2
+TITLE: Login Component
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-002
+  ROLE: Implements
+
+[ELEMENT]
+UID: ELEM-3
+TITLE: Session Manager
+
+[ELEMENT]
+UID: ELEM-4
+TITLE: Password Reset Service
+
+[[/SECTION]]

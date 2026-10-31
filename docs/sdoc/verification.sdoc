@@ -1,0 +1,66 @@
+[DOCUMENT]
+TITLE: Verification Records
+UID: DOC-VERIFICATION
+
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: VERIFICATION
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: METHOD
+    TYPE: String
+    REQUIRED: True
+  - TITLE: ACCEPTANCE_CRITERIA
+    TYPE: String
+    REQUIRED: True
+  - TITLE: RESULT
+    TYPE: String
+    REQUIRED: True
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Verifies
+
+[[SECTION]]
+TITLE: Verification results
+
+[VERIFICATION]
+UID: VER-001
+TITLE: Verification of REQ-001, REQ-004
+METHOD: Test
+ACCEPTANCE_CRITERIA: Valid credentials log in successfully; invalid credentials rejected.
+RESULT: Pass
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-001
+  ROLE: Verifies
+- TYPE: Parent
+  VALUE: REQ-004
+  ROLE: Verifies
+
+[VERIFICATION]
+UID: VER-002
+TITLE: Verification of REQ-002
+METHOD: Test
+ACCEPTANCE_CRITERIA: Session expires after exactly 15 minutes of inactivity.
+RESULT: Pending
+RELATIONS:
+- TYPE: Parent
+  VALUE: REQ-002
+  ROLE: Verifies
+
+[[/SECTION]]

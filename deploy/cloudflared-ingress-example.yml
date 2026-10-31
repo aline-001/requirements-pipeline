@@ -1,0 +1,12 @@
+# Only needed if baserow-tunnel is managed from a local config file
+# (/etc/cloudflared/config.yml). If the tunnel is managed in the Cloudflare
+# dashboard, add the public hostname there instead (see README).
+tunnel: f420f6c8-f985-4b84-b9de-fa7636a3ad9b
+credentials-file: /etc/cloudflared/f420f6c8-f985-4b84-b9de-fa7636a3ad9b.json
+protocol: http2
+ingress:
+  - hostname: baserow.darho.net
+    service: http://localhost:80
+  - hostname: rtm.darho.net
+    service: http://localhost:8090
+  - service: http_status:404
