@@ -40,7 +40,7 @@ TITLE: NEED-3: Secure user login
 
 [REQUIREMENT]
 UID: REQ-004
-STATUS: Approved
+STATUS: Baselined
 STATEMENT: The system shall authenticate users via SSO
 RELATIONS:
 - TYPE: Parent
@@ -53,7 +53,7 @@ TITLE: NEED-4: Session timeout
 
 [REQUIREMENT]
 UID: REQ-002
-STATUS: Approved
+STATUS: Baselined
 STATEMENT: The system shall expire idle sessions after 15 minutes of inactivity.
 RELATIONS:
 - TYPE: Parent
