@@ -1,5 +1,6 @@
 # Requirements Engineering Pipeline — Submission
 
+**Author:** Aline ASIMWE (UR UNIPOD intern) · **Supervisor:** Patrick DARHO
 
 ## Links
 
@@ -9,6 +10,9 @@
 | Git repository (source of truth) | https://github.com/aline-001/requirements-pipeline |
 | RTM and coverage (computed from Git) | https://rtm.darho.net |
 | StrictDoc documents and traceability | https://rtm.darho.net/strictdoc/ |
+| OpenMBEE SysML v2 API (for SysML v2 tools, token required) | https://sysmlv2.darho.net |
+| OpenMBEE login (returns a token) | https://flexo-auth.darho.net/login |
+| OpenMBEE Flexo PR Manager (model pull requests) | https://pr.darho.net |
 | RTM as CSV / coverage report | https://rtm.darho.net/rtm.csv · https://rtm.darho.net/coverage.txt |
 | Form: Submit a Need | https://baserow.darho.net/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk |
 | Form: Review a Need | https://baserow.darho.net/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8 |
@@ -807,6 +811,157 @@ stateDiagram-v2
 
 ---
 
+## Extension — OpenMBEE Flexo MMS, SysML v2 API and PR Manager
+
+The pipeline is extended with the OpenMBEE **Flexo** stack, all in Docker on the same VPS. Flexo MMS stores models as RDF with Git-like version control (branches, commits, diffs). The Flexo SysML v2 service exposes them through the OMG **Systems Modeling API** (REST/HTTP), so SysML v2 tools can connect. **Flexo PR Manager** records model pull requests and reviews between branches. Setup files are in `flexo/` in the repository; `flexo/FLEXO.md` has the full guide.
+
+### Components
+
+| Component | Image / source | Port (127.0.0.1 only) | Public address |
+|---|---|---|---|
+| Fuseki quad store (RDF database, TDB2 on a volume) | `atomgraph/fuseki:4.6` | 3030 | none |
+| OpenLDAP (user accounts) | `bitnamilegacy/openldap:2.6.4` | none | none |
+| Flexo MMS auth service | `openmbee/flexo-mms-auth-service:latest` | 8082 | https://flexo-auth.darho.net |
+| Flexo MMS layer 1 (versioning core) | `openmbee/flexo-mms-layer1-service:v0.3.0` | 8080 | none |
+| Flexo SysML v2 API | `openmbee/flexo-sysmlv2:v0.2.0` | 8083 | https://sysmlv2.darho.net |
+| Flexo PR Manager | built from `Open-MBEE/flexo-pr-manager` @ `cd37aef` | 8084 | https://pr.darho.net |
+
+### Flexo deployment architecture
+
+**Code**
+
+```text
+flowchart TB
+    Tools["SysML v2 tools<br/>(Jupyter pilot, SysIDE, scripts)"] -->|"HTTPS + Bearer token"| CF
+    Browser["Reviewer browser"] -->|"HTTPS, Cloudflare Access login"| CF
+    CF["Cloudflare edge"] -->|"tunnel"| CFD["cloudflared on VPS"]
+
+    subgraph VPS["Docker project 'flexo' on the VPS (all ports 127.0.0.1)"]
+        CFD -->|"sysmlv2.darho.net"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
+        CFD -->|"flexo-auth.darho.net"| AU["auth-service :8082<br/>GET /login -> token"]
+        CFD -->|"pr.darho.net"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
+        PR -->|"projects, branches, commits"| S2
+        S2 -->|"JSON <-> RDF, versioning"| L1["flexo-mms-layer1 :8080<br/>branches, commits, diff"]
+        AU -->|"users and groups"| LDAP["OpenLDAP"]
+        L1 --> QS[("Fuseki quad store :3030<br/>TDB2 volume")]
+        AU --> QS
+        PR --- PRDB[("SQLite volume")]
+    end
+```
+
+**Diagram**
+
+```mermaid
+flowchart TB
+    Tools["SysML v2 tools<br/>(Jupyter pilot, SysIDE, scripts)"] -->|"HTTPS + Bearer token"| CF
+    Browser["Reviewer browser"] -->|"HTTPS, Cloudflare Access login"| CF
+    CF["Cloudflare edge"] -->|"tunnel"| CFD["cloudflared on VPS"]
+
+    subgraph VPS["Docker project 'flexo' on the VPS (all ports 127.0.0.1)"]
+        CFD -->|"sysmlv2.darho.net"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
+        CFD -->|"flexo-auth.darho.net"| AU["auth-service :8082<br/>GET /login -> token"]
+        CFD -->|"pr.darho.net"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
+        PR -->|"projects, branches, commits"| S2
+        S2 -->|"JSON <-> RDF, versioning"| L1["flexo-mms-layer1 :8080<br/>branches, commits, diff"]
+        AU -->|"users and groups"| LDAP["OpenLDAP"]
+        L1 --> QS[("Fuseki quad store :3030<br/>TDB2 volume")]
+        AU --> QS
+        PR --- PRDB[("SQLite volume")]
+    end
+```
+
+### Connecting SysML v2 tools
+
+1. Get a token (valid 24 hours) with a Flexo login: `curl -u aline https://flexo-auth.darho.net/login` returns `{"token":"eyJ..."}`.
+2. Call the SysML v2 API with the header `Authorization: Bearer <token>`, for example `GET https://sysmlv2.darho.net/projects`. The standard endpoints apply: `/projects`, `/projects/{id}/branches`, `/projects/{id}/commits`, `/projects/{id}/commits/{commit}/elements`.
+3. People use the PR Manager in the browser at https://pr.darho.net. It is protected by a Cloudflare Access email login; inside it, a Flexo token is pasted in Settings.
+
+The two API addresses are not web pages: `https://sysmlv2.darho.net/` answers 404 (the API has no home page), and the API answers 401 without a token.
+
+### Security changes compared with the OpenMBEE example setup
+
+| OpenMBEE example (local demo) | This deployment | Reason |
+|---|---|---|
+| ports open on all interfaces | bound to `127.0.0.1`, public only through the Cloudflare tunnel | Docker ports bypass the UFW firewall |
+| Fuseki in memory | TDB2 on a Docker volume, initial data loaded once by `init.sh` | data survives restarts |
+| published sample JWT secret and admin token | random secret in `flexo/.env` (not in Git) | anyone could sign an admin token with the public secret |
+| `FLEXO_AUTH` set to an admin token | empty | the SysML v2 service uses it for callers that send no token, which would give anonymous admin access |
+| default LDAP users `user01/password1` | users `aline`, `patrick` with random passwords | default passwords are public |
+| PR Manager open | Cloudflare Access email login, no default token | it has no login of its own and shows its default token at `/api/config` |
+
+Checked with `flexo/smoke_test.sh --public`: login returns a token, the API gives no data without a token (HTTP 401), the API lists projects with a token, the PR Manager reaches the API, and `pr.darho.net` requires the Cloudflare login. Daily backup at 03:30 (`backup_flexo.sh`, last 7 kept).
+
+### Demo: requirements as a SysML v2 model, change reviewed as a model pull request
+
+`flexo/demo_model.py` takes the baselined requirements from `docs/sdoc/requirements.sdoc` (Git, the source of truth) and commits each one to the SysML v2 project **Pipeline demo** as a `RequirementDefinition`, with the requirement ID as its short name and the statement as its name. It then creates the branch **cr-session-timeout** and commits the change proposed by change request "Increase session timeout" (REQ-002: 15 to 30 minutes of inactivity).
+
+| Item | Value |
+|---|---|
+| Project | Pipeline demo (`bc22979a-39b7-4fe6-a656-5f8a8e10084c`) |
+| Branch `Initial` | REQ-002 and REQ-004 as RequirementDefinitions, commit `15e1b1d8-be64-4dac-b270-d2e6ca94c628` |
+| Branch `cr-session-timeout` | REQ-002 changed to 30 minutes, commit `65557139-86cd-4736-9fd0-3af94fbb95dd` |
+| Pull request | #1 "CR: Increase session timeout (REQ-002)", `cr-session-timeout` into `Initial`, reviewed in the PR Manager |
+
+The PR Manager records pull requests, reviews (Approve, Request changes, Comment) and the commit URLs of both branches. The model diff and merge themselves are done by an external tool such as LemonTree, which is how OpenMBEE designed the PR Manager.
+
+### Model change request flow: Git → Flexo → PR Manager
+
+**Code**
+
+```text
+sequenceDiagram
+    autonumber
+    participant Git as Git (docs/sdoc)
+    participant Demo as demo_model.py
+    participant Auth as flexo-auth
+    participant API as SysML v2 API
+    participant Flexo as Flexo MMS layer 1
+    participant PR as Flexo PR Manager
+    participant Rev as Reviewer
+
+    Demo->>Auth: GET /login (LDAP user)
+    Auth-->>Demo: token (24 h)
+    Demo->>Git: read baselined requirements
+    Demo->>API: POST /projects/{id}/commits (RequirementDefinition per REQ)
+    API->>Flexo: commit to branch Initial (JSON to RDF)
+    Demo->>API: POST /projects/{id}/branches "cr-session-timeout"
+    Demo->>API: POST commit ?branchId= (REQ-002: 15 to 30 minutes)
+    API->>Flexo: commit to branch cr-session-timeout
+    Rev->>PR: open PR cr-session-timeout into Initial
+    PR->>API: GET branches and head commits
+    Rev->>PR: review: Approve
+    PR-->>Rev: status APPROVED, commit URLs for diff/merge tooling
+```
+
+**Diagram**
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Git as Git (docs/sdoc)
+    participant Demo as demo_model.py
+    participant Auth as flexo-auth
+    participant API as SysML v2 API
+    participant Flexo as Flexo MMS layer 1
+    participant PR as Flexo PR Manager
+    participant Rev as Reviewer
+
+    Demo->>Auth: GET /login (LDAP user)
+    Auth-->>Demo: token (24 h)
+    Demo->>Git: read baselined requirements
+    Demo->>API: POST /projects/{id}/commits (RequirementDefinition per REQ)
+    API->>Flexo: commit to branch Initial (JSON to RDF)
+    Demo->>API: POST /projects/{id}/branches "cr-session-timeout"
+    Demo->>API: POST commit ?branchId= (REQ-002: 15 to 30 minutes)
+    API->>Flexo: commit to branch cr-session-timeout
+    Rev->>PR: open PR cr-session-timeout into Initial
+    PR->>API: GET branches and head commits
+    Rev->>PR: review: Approve
+    PR-->>Rev: status APPROVED, commit URLs for diff/merge tooling
+```
+
+---
+
 ## README — reusing the pipeline on a new project
 
 Full version: `README.md` in the repository.
@@ -820,3 +975,4 @@ Full version: `README.md` in the repository.
 7. **Run:** `./run_sync.sh`, merge the Pull Request, run it again (merged requirements become Baselined). Add cron entries for `backup.sh` (03:00), `run_sync.sh` (03:15) and `publish.sh` (every 30 min).
 8. **Publish:** install `deploy/rtm-site.service`, add a tunnel route `rtm.<domain>` → `http://localhost:8090`, run `./publish.sh`.
 9. **Code:** tag each implementing function's docstring with `@relation(REQ-xxx, scope=function)`.
+10. **OpenMBEE Flexo (optional):** in `flexo/`, run `./setup.sh` (secrets, image downloads), `docker compose up -d`, `./init.sh` (database and SysML v2 org), `./smoke_test.sh`; add tunnel routes `sysmlv2.<domain>` → `http://localhost:8083`, `flexo-auth.<domain>` → `http://localhost:8082`, `pr.<domain>` → `http://localhost:8084`, and a Cloudflare Access policy for `pr.<domain>`. See `flexo/FLEXO.md`.
