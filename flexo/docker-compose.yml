@@ -1,0 +1,119 @@
+# OpenMBEE Flexo MMS + SysML v2 API + Flexo PR Manager
+#
+# Based on Open-MBEE/flexo-mms-sysmlv2 (docker-compose/) and Open-MBEE/flexo-mms-deployment,
+# changed for a single public server:
+#   * every port is bound to 127.0.0.1; public access only through the Cloudflare tunnel
+#   * Fuseki stores data on disk (TDB2 volume) instead of in memory
+#   * secrets come from flexo/.env (made by setup.sh, never committed)
+#   * memory limits sized for an 8 GB VPS that also runs Baserow
+#   * FLEXO_AUTH is empty, so the SysML v2 API never acts as admin for anonymous callers
+#
+# Public routes (Cloudflare tunnel, see FLEXO.md):
+#   sysmlv2.darho.net -> http://localhost:8083   SysML v2 API (what SysML v2 tools connect to)
+#   flexo-auth.darho.net -> http://localhost:8082 login: GET /login with LDAP user/password -> token
+#   pr.darho.net      -> http://localhost:8084   Flexo PR Manager (behind Cloudflare Access)
+name: flexo
+
+services:
+  openldap:
+    image: bitnamilegacy/openldap:2.6.4
+    restart: unless-stopped
+    environment:
+      LDAP_PORT_NUMBER: "1389"
+      LDAP_ROOT: dc=example,dc=org
+      LDAP_ADMIN_USERNAME: admin
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD:?run setup.sh}
+      LDAP_USERS: ${LDAP_USERS:?run setup.sh}
+      LDAP_PASSWORDS: ${LDAP_PASSWORDS:?run setup.sh}
+      LDAP_USER_DC: users
+      LDAP_GROUP: group01            # every LDAP user is in group01 = Flexo admins (mount/cluster.trig)
+    volumes:
+      - ldap_data:/bitnami/openldap
+
+  quad-store:
+    image: atomgraph/fuseki:4.6
+    restart: unless-stopped
+    environment:
+      JAVA_OPTIONS: "-Xmx${FUSEKI_HEAP:-1g} -Xms256m"
+      JAVA_TOOL_OPTIONS: "-XX:-UseContainerSupport"
+    # TDB2 on disk. First-time data (mount/cluster.trig) is loaded by init.sh.
+    command: --tdb2 --loc=/fuseki/databases --update /ds
+    volumes:
+      - fuseki_data:/fuseki/databases
+    ports:
+      - "127.0.0.1:3030:3030"        # local only: init.sh and backups
+
+  auth-service:
+    image: openmbee/flexo-mms-auth-service:latest
+    restart: unless-stopped
+    depends_on: [openldap, quad-store]
+    environment:
+      JWT_DOMAIN: http://flexo-mms-services
+      JWT_AUDIENCE: flexo-mms-audience
+      JWT_REALM: flexo-mms
+      JWT_SECRET: ${FLEXO_JWT_SECRET:?run setup.sh}
+      LDAP_LOCATION: ldap://openldap:1389
+      LDAP_BASE: dc=example,dc=org
+      LDAP_USER_PATTERN: cn=%s,ou=users
+      LDAP_USER_NAMESPACE: ldap/user/
+      LDAP_GROUP_SEARCH_FILTER: (&(objectclass=group)(member=%s)(|(%s)))
+      LDAP_GROUP_ATTRIBUTE: cn
+      LDAP_GROUP_NAMESPACE: ldap/group/
+      LDAP_GROUP_STORE_URI: http://quad-store:3030/ds/sparql
+      LDAP_GROUP_STORE_CONTEXT: http://layer1-service/
+      JAVA_TOOL_OPTIONS: "-Xmx256m"
+    ports:
+      - "127.0.0.1:8082:8080"
+
+  layer1-service:
+    image: openmbee/flexo-mms-layer1-service:v0.3.0
+    hostname: layer1-service          # must match the root context in mount/cluster.trig
+    restart: unless-stopped
+    depends_on: [quad-store]
+    environment:
+      JWT_DOMAIN: http://flexo-mms-services
+      JWT_AUDIENCE: flexo-mms-audience
+      JWT_REALM: flexo-mms
+      JWT_SECRET: ${FLEXO_JWT_SECRET:?run setup.sh}
+      FLEXO_MMS_ROOT_CONTEXT: http://layer1-service
+      FLEXO_MMS_QUERY_URL: http://quad-store:3030/ds/sparql
+      FLEXO_MMS_UPDATE_URL: http://quad-store:3030/ds/update
+      FLEXO_MMS_GRAPH_STORE_PROTOCOL_URL: http://quad-store:3030/ds/data
+      JAVA_TOOL_OPTIONS: "-Xmx768m"
+    ports:
+      - "127.0.0.1:8080:8080"        # local only: init.sh creates the sysmlv2 org here
+
+  sysmlv2-service:
+    image: openmbee/flexo-sysmlv2:v0.2.0
+    restart: unless-stopped
+    depends_on: [layer1-service]
+    environment:
+      FLEXO_HOST: layer1-service
+      FLEXO_PROTOCOL: http
+      FLEXO_PORT: "8080"
+      FLEXO_SYSMLV2_ORG: sysmlv2
+      FLEXO_AUTH: ""                  # never fall back to an admin token for callers without one
+      FLEXO_CORS_ALLOWED_ORIGINS: ${SYSMLV2_CORS_ORIGINS:-}
+      JAVA_TOOL_OPTIONS: "-Xmx512m"
+    ports:
+      - "127.0.0.1:8083:8080"
+
+  pr-manager:
+    build: ./pr-manager-src           # cloned by setup.sh at a pinned commit
+    restart: unless-stopped
+    depends_on: [sysmlv2-service]
+    environment:
+      DATABASE_PATH: /data/flexo-prs.db
+      # The PR manager's server calls this address itself, so the internal Docker name works.
+      DEFAULT_MMS_BASE_URL: http://sysmlv2-service:8080
+      # Left empty on purpose: /api/config shows this value to anyone who opens the page.
+      DEFAULT_BEARER_TOKEN: ""
+    volumes:
+      - pr_data:/data
+    ports:
+      - "127.0.0.1:8084:8080"
+
+volumes:
+  ldap_data:
+  fuseki_data:
+  pr_data:
