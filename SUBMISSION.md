@@ -6,19 +6,21 @@
 
 | What | Link |
 |---|---|
-| Baserow instance (public HTTPS) | https://baserow.darho.net |
+| Baserow instance (public HTTPS) | https://baserow.darho.rw |
 | Git repository (source of truth) | https://github.com/aline-001/requirements-pipeline |
-| RTM and coverage (computed from Git) | https://rtm.darho.net |
-| StrictDoc documents and traceability | https://rtm.darho.net/strictdoc/ |
-| OpenMBEE SysML v2 API (for SysML v2 tools, token required) | https://sysmlv2.darho.net |
-| OpenMBEE login (returns a token) | https://flexo-auth.darho.net/login |
-| OpenMBEE Flexo PR Manager (model pull requests) | https://pr.darho.net |
-| RTM as CSV / coverage report | https://rtm.darho.net/rtm.csv · https://rtm.darho.net/coverage.txt |
-| Form: Submit a Need | https://baserow.darho.net/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk |
-| Form: Review a Need | https://baserow.darho.net/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8 |
-| Form: Register a Stakeholder | https://baserow.darho.net/form/FBQcO6RNOvXQ_brF45zerFWXJR3Ti6I2MvHDYjqHqV8 |
-| Form: Request a Change | https://baserow.darho.net/form/Qhc8jwewHRSNyMQogMnfxWCWDp_b5DtnPwOXXu0nTh4 |
-| Form: Record a Verification Result | https://baserow.darho.net/form/zk70HXuVPPuB0kQ1WcWqf2rcmJyVEW5iI5CGM8brDlQ |
+| RTM and coverage (computed from Git) | https://rtm.darho.rw |
+| StrictDoc documents and traceability | https://rtm.darho.rw/strictdoc/ |
+| OpenMBEE SysML v2 API (for SysML v2 tools, token required) | https://sysmlv2.darho.rw |
+| OpenMBEE login (returns a token) | https://flexo-auth.darho.rw/login |
+| OpenMBEE Flexo PR Manager (model pull requests) | https://pr.darho.rw |
+| Jenkins (CI/CD server for DARHO projects) | https://jenkins.darho.rw |
+| Jenkins job: StrictDoc check, RTM build and publish | https://jenkins.darho.rw/job/requirements-pipeline/job/rtm-publish/ |
+| RTM as CSV / coverage report | https://rtm.darho.rw/rtm.csv · https://rtm.darho.rw/coverage.txt |
+| Form: Submit a Need | https://baserow.darho.rw/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk |
+| Form: Review a Need | https://baserow.darho.rw/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8 |
+| Form: Register a Stakeholder | https://baserow.darho.rw/form/FBQcO6RNOvXQ_brF45zerFWXJR3Ti6I2MvHDYjqHqV8 |
+| Form: Request a Change | https://baserow.darho.rw/form/Qhc8jwewHRSNyMQogMnfxWCWDp_b5DtnPwOXXu0nTh4 |
+| Form: Record a Verification Result | https://baserow.darho.rw/form/zk70HXuVPPuB0kQ1WcWqf2rcmJyVEW5iI5CGM8brDlQ |
 
 The supervisor account (info.darho@gmail.com) is an admin of the workspace, so all tables and views open after login.
 
@@ -225,7 +227,7 @@ All forms are published as Baserow Form views. Stakeholders, reviewers, and engi
 ### Form 1 — Submit a Need
 
 **Table:** StakeholderNeed (709)
-**Public URL:** https://baserow.darho.net/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk
+**Public URL:** https://baserow.darho.rw/form/GDQAfHHbSMCHn70LQ0zECqb0sCSwsqi_4ECLqW97zfk
 
 | Field | Required | Help Text |
 |---|---|---|
@@ -243,7 +245,7 @@ All forms are published as Baserow Form views. Stakeholders, reviewers, and engi
 ### Form 2 — Review a Need
 
 **Table:** Review (704)
-**Public URL:** https://baserow.darho.net/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8
+**Public URL:** https://baserow.darho.rw/form/UOcwmCoDEnlxuVtz-oQ_G4LN-YEIBFezwjp5NYvvEI8
 
 | Field | Required | Help Text |
 |---|---|---|
@@ -258,7 +260,7 @@ All forms are published as Baserow Form views. Stakeholders, reviewers, and engi
 ### Form 3 — Register a Stakeholder
 
 **Table:** Stakeholder (683)
-**Public URL:** https://baserow.darho.net/form/FBQcO6RNOvXQ_brF45zerFWXJR3Ti6I2MvHDYjqHqV8
+**Public URL:** https://baserow.darho.rw/form/FBQcO6RNOvXQ_brF45zerFWXJR3Ti6I2MvHDYjqHqV8
 
 | Field | Required | Help Text |
 |---|---|---|
@@ -272,7 +274,7 @@ All forms are published as Baserow Form views. Stakeholders, reviewers, and engi
 ### Form 4 — Request a Change
 
 **Table:** ChangeRequest (708)
-**Public URL:** https://baserow.darho.net/form/Qhc8jwewHRSNyMQogMnfxWCWDp_b5DtnPwOXXu0nTh4
+**Public URL:** https://baserow.darho.rw/form/Qhc8jwewHRSNyMQogMnfxWCWDp_b5DtnPwOXXu0nTh4
 
 | Field | Required | Help Text |
 |---|---|---|
@@ -288,7 +290,7 @@ All forms are published as Baserow Form views. Stakeholders, reviewers, and engi
 ### Form 5 — Record a Verification Result
 
 **Table:** Verification (707)
-**Public URL:** https://baserow.darho.net/form/zk70HXuVPPuB0kQ1WcWqf2rcmJyVEW5iI5CGM8brDlQ
+**Public URL:** https://baserow.darho.rw/form/zk70HXuVPPuB0kQ1WcWqf2rcmJyVEW5iI5CGM8brDlQ
 
 | Field | Required | Help Text |
 |---|---|---|
@@ -364,7 +366,7 @@ services:
     image: baserow/baserow:1.32.5
     restart: unless-stopped
     environment:
-      BASEROW_PUBLIC_URL: "https://baserow.darho.net"
+      BASEROW_PUBLIC_URL: "https://baserow.darho.rw"
       EMAIL_SMTP: "true"
       EMAIL_SMTP_HOST: "smtp-relay.brevo.com"
       EMAIL_SMTP_PORT: "587"
@@ -382,7 +384,7 @@ volumes:
 
 ### Deployment Method
 
-Cloudflare Tunnel, running as a systemd service on the Contabo VPS. The public hostname `baserow.darho.net` routes through the Cloudflare edge to the tunnel, which forwards to Baserow's Caddy proxy on `localhost:80`. The same tunnel serves `rtm.darho.net` (RTM and StrictDoc) from `localhost:8090`. QUIC is blocked on this network, so the tunnel uses HTTP/2.
+Cloudflare Tunnel, running as a systemd service on the Contabo VPS. The public hostname `baserow.darho.rw` routes through the Cloudflare edge to the tunnel, which forwards to Baserow's Caddy proxy on `localhost:80`. The same tunnel serves `rtm.darho.rw` (RTM and StrictDoc) from `localhost:8090` and `jenkins.darho.rw` from `localhost:8085`. The services moved from the darho.net domain to darho.rw in November 2026. QUIC is blocked on this network, so the tunnel uses HTTP/2.
 
 **Reason for choosing Cloudflare Tunnel:**
 
@@ -409,44 +411,46 @@ Cloudflare Tunnel, running as a systemd service on the Contabo VPS. The public h
 
 ```text
 flowchart TB
-    Browser["Browser<br/>stakeholders, reviewers, supervisor"] -->|HTTPS| CF["Cloudflare edge<br/>TLS for darho.net"]
+    Browser["Browser<br/>stakeholders, reviewers, supervisor"] -->|HTTPS| CF["Cloudflare edge<br/>TLS for darho.rw"]
     CF -->|"tunnel, HTTP/2 outbound"| CFD
 
     subgraph VPS["Contabo VPS, Ubuntu 24.04 (UFW: SSH only, fail2ban)"]
         CFD["cloudflared<br/>systemd service"]
-        CFD -->|"baserow.darho.net"| Baserow["Baserow container 1.32.5<br/>localhost:80"]
-        CFD -->|"rtm.darho.net"| Site["rtm-site.service<br/>static RTM + StrictDoc, localhost:8090"]
+        CFD -->|"baserow.darho.rw"| Baserow["Baserow container 1.32.5<br/>localhost:80"]
+        CFD -->|"rtm.darho.rw"| Site["rtm-site.service<br/>static RTM + StrictDoc, localhost:8090"]
+        CFD -->|"jenkins.darho.rw"| Jenkins
         Baserow --- Vol[("baserow_data volume")]
         Backup["backup.sh, cron 03:00<br/>pg_dump, keep 7"] --> Vol
         Sync["run_sync.sh, cron 03:15<br/>sync.py, database token"]
-        Publish["publish.sh, cron every 30 min<br/>rtm.py + strictdoc export"] --> Site
+        Jenkins["Jenkins job rtm-publish<br/>rtm.py + strictdoc export, localhost:8085"] --> Site
     end
 
     Sync -->|"HTTPS REST API"| CF
     Sync -->|"push branch, Pull Request"| Git[("GitHub<br/>aline-001/requirements-pipeline")]
-    Git -->|"git pull main"| Publish
+    Git -->|"new commit on main"| Jenkins
 ```
 
 **Diagram**
 
 ```mermaid
 flowchart TB
-    Browser["Browser<br/>stakeholders, reviewers, supervisor"] -->|HTTPS| CF["Cloudflare edge<br/>TLS for darho.net"]
+    Browser["Browser<br/>stakeholders, reviewers, supervisor"] -->|HTTPS| CF["Cloudflare edge<br/>TLS for darho.rw"]
     CF -->|"tunnel, HTTP/2 outbound"| CFD
 
     subgraph VPS["Contabo VPS, Ubuntu 24.04 (UFW: SSH only, fail2ban)"]
         CFD["cloudflared<br/>systemd service"]
-        CFD -->|"baserow.darho.net"| Baserow["Baserow container 1.32.5<br/>localhost:80"]
-        CFD -->|"rtm.darho.net"| Site["rtm-site.service<br/>static RTM + StrictDoc, localhost:8090"]
+        CFD -->|"baserow.darho.rw"| Baserow["Baserow container 1.32.5<br/>localhost:80"]
+        CFD -->|"rtm.darho.rw"| Site["rtm-site.service<br/>static RTM + StrictDoc, localhost:8090"]
+        CFD -->|"jenkins.darho.rw"| Jenkins
         Baserow --- Vol[("baserow_data volume")]
         Backup["backup.sh, cron 03:00<br/>pg_dump, keep 7"] --> Vol
         Sync["run_sync.sh, cron 03:15<br/>sync.py, database token"]
-        Publish["publish.sh, cron every 30 min<br/>rtm.py + strictdoc export"] --> Site
+        Jenkins["Jenkins job rtm-publish<br/>rtm.py + strictdoc export, localhost:8085"] --> Site
     end
 
     Sync -->|"HTTPS REST API"| CF
     Sync -->|"push branch, Pull Request"| Git[("GitHub<br/>aline-001/requirements-pipeline")]
-    Git -->|"git pull main"| Publish
+    Git -->|"new commit on main"| Jenkins
 ```
 
 ---
@@ -598,7 +602,7 @@ sequenceDiagram
 
 ## Task 5 — Traceability, Verification and RTM
 
-Git is the source of truth. Traceability, the RTM and the coverage report are computed from the repository by `rtm.py` and `strictdoc export`, run by `publish.sh`; nothing is typed by hand.
+Git is the source of truth. Traceability, the RTM and the coverage report are computed from the repository by `rtm.py` and `strictdoc export`, run by the Jenkins job `rtm-publish` on every new commit on `main` (or by hand with `publish.sh`); nothing is typed by hand.
 
 ### Repository structure
 
@@ -609,12 +613,13 @@ strictdoc_config.py   StrictDoc project config (documents + source traceability)
 sync/sync.py          Baserow -> .sdoc
 run_sync.sh           sync -> StrictDoc check -> Pull Request
 rtm.py                RTM (index.html, rtm.csv) + coverage.txt
-publish.sh            builds site/ = RTM + StrictDoc export, served at rtm.darho.net
+publish.sh            manual build of RTM + StrictDoc export
+Jenkinsfile           Jenkins pipeline: StrictDoc check -> RTM build -> publish to rtm.darho.rw
 ```
 
 ### Trace in StrictDoc: need → requirement → element → code → verification
 
-Published at **https://rtm.darho.net/strictdoc/**.
+Published at **https://rtm.darho.rw/strictdoc/**.
 
 - **Need → requirement:** each `[REQUIREMENT]` has `Parent: NEED-n`.
 - **Requirement → element:** each `[ELEMENT]` has `Parent: REQ-nnn`, role *Implements*.
@@ -648,7 +653,7 @@ Acceptance criteria for each record are in `docs/sdoc/verification.sdoc` and on 
 
 ### RTM (one row per requirement)
 
-Published at **https://rtm.darho.net** (also as `rtm.csv`).
+Published at **https://rtm.darho.rw** (also as `rtm.csv`).
 
 | Requirement | Status | Need | Element | Code | Verification | Result |
 |---|---|---|---|---|---|---|
@@ -658,7 +663,7 @@ Published at **https://rtm.darho.net** (also as `rtm.csv`).
 
 ### Coverage Report
 
-From https://rtm.darho.net/coverage.txt:
+From https://rtm.darho.rw/coverage.txt:
 
 ```text
 Stakeholder needs                        3
@@ -685,7 +690,7 @@ The pass rate is 50% because VER-002 (REQ-002) is still Pending. NEED-5 has no e
 
 ### Published RTM
 
-https://rtm.darho.net is served read-only from the VPS (`rtm-site.service` on `localhost:8090`, exposed through the Cloudflare tunnel). `publish.sh` rebuilds it from `main` every 30 minutes. The StrictDoc editing server is not exposed, because Git is the only place requirements change.
+https://rtm.darho.rw is served read-only from the VPS (`rtm-site.service` on `localhost:8090`, folder `/srv/rtm-site/current`, exposed through the Cloudflare tunnel). The Jenkins job `rtm-publish` rebuilds it after every new commit on `main` (see the Jenkins section below); this replaced the earlier cron run of `publish.sh` every 30 minutes. The StrictDoc editing server is not exposed, because Git is the only place requirements change.
 
 ### RTM computation and publication sequence
 
@@ -695,21 +700,22 @@ https://rtm.darho.net is served read-only from the VPS (`rtm-site.service` on `l
 sequenceDiagram
     autonumber
     participant Git as GitHub main
-    participant Pub as publish.sh
+    participant Pub as Jenkins rtm-publish
     participant RTM as rtm.py
     participant SD as strictdoc export
     participant Web as rtm-site + tunnel
     participant User as Browser
 
-    Pub->>Git: git pull main
+    Git->>Pub: new commit on main (checked every 15 min)
+    Pub->>Git: checkout main
     Pub->>RTM: run
     RTM->>Git: read docs/sdoc/*.sdoc
     RTM->>Git: scan src/ for @relation(REQ-xxx, scope=function)
     RTM-->>Pub: index.html (RTM), rtm.csv, coverage.txt
     Pub->>SD: strictdoc export . (documents + source traceability)
     SD-->>Pub: StrictDoc HTML
-    Pub->>Web: replace site/ folder
-    User->>Web: https://rtm.darho.net
+    Pub->>Web: replace /srv/rtm-site/current
+    User->>Web: https://rtm.darho.rw
     Web-->>User: RTM, coverage, StrictDoc (read-only)
 ```
 
@@ -719,21 +725,22 @@ sequenceDiagram
 sequenceDiagram
     autonumber
     participant Git as GitHub main
-    participant Pub as publish.sh
+    participant Pub as Jenkins rtm-publish
     participant RTM as rtm.py
     participant SD as strictdoc export
     participant Web as rtm-site + tunnel
     participant User as Browser
 
-    Pub->>Git: git pull main
+    Git->>Pub: new commit on main (checked every 15 min)
+    Pub->>Git: checkout main
     Pub->>RTM: run
     RTM->>Git: read docs/sdoc/*.sdoc
     RTM->>Git: scan src/ for @relation(REQ-xxx, scope=function)
     RTM-->>Pub: index.html (RTM), rtm.csv, coverage.txt
     Pub->>SD: strictdoc export . (documents + source traceability)
     SD-->>Pub: StrictDoc HTML
-    Pub->>Web: replace site/ folder
-    User->>Web: https://rtm.darho.net
+    Pub->>Web: replace /srv/rtm-site/current
+    User->>Web: https://rtm.darho.rw
     Web-->>User: RTM, coverage, StrictDoc (read-only)
 ```
 
@@ -806,7 +813,7 @@ stateDiagram-v2
 | 3. Requirements changed | Baserow Requirement | REQ-001 → Obsolete; REQ-004 created, linked to NEED-3, allocated to Auth Subsystem, verified by VER-001 |
 | 4. Sync | `./run_sync.sh` → `docs/sdoc/` | `requirements.sdoc` shows REQ-001 in "Obsolete requirements" and REQ-004 under NEED-3 |
 | 5. Git | https://github.com/aline-001/requirements-pipeline/commits/main | commit and Pull Request with the change |
-| 6. RTM | https://rtm.darho.net | REQ-001 struck through as Obsolete; REQ-004 traced NEED-3 → Auth Subsystem → `login_via_sso` → VER-001 Pass |
+| 6. RTM | https://rtm.darho.rw | REQ-001 struck through as Obsolete; REQ-004 traced NEED-3 → Auth Subsystem → `login_via_sso` → VER-001 Pass |
 | 7. Closed | Baserow ChangeRequest | Status Implemented |
 
 ---
@@ -821,10 +828,10 @@ The pipeline is extended with the OpenMBEE **Flexo** stack, all in Docker on the
 |---|---|---|---|
 | Fuseki quad store (RDF database, TDB2 on a volume) | `atomgraph/fuseki:4.6` | 3030 | none |
 | OpenLDAP (user accounts) | `bitnamilegacy/openldap:2.6.4` | none | none |
-| Flexo MMS auth service | `openmbee/flexo-mms-auth-service:latest` | 8082 | https://flexo-auth.darho.net |
+| Flexo MMS auth service | `openmbee/flexo-mms-auth-service:latest` | 8082 | https://flexo-auth.darho.rw |
 | Flexo MMS layer 1 (versioning core) | `openmbee/flexo-mms-layer1-service:v0.3.0` | 8080 | none |
-| Flexo SysML v2 API | `openmbee/flexo-sysmlv2:v0.2.0` | 8083 | https://sysmlv2.darho.net |
-| Flexo PR Manager | built from `Open-MBEE/flexo-pr-manager` @ `cd37aef` | 8084 | https://pr.darho.net |
+| Flexo SysML v2 API | `openmbee/flexo-sysmlv2:v0.2.0` | 8083 | https://sysmlv2.darho.rw |
+| Flexo PR Manager | built from `Open-MBEE/flexo-pr-manager` @ `cd37aef` | 8084 | https://pr.darho.rw |
 
 ### Flexo deployment architecture
 
@@ -837,9 +844,9 @@ flowchart TB
     CF["Cloudflare edge"] -->|"tunnel"| CFD["cloudflared on VPS"]
 
     subgraph VPS["Docker project 'flexo' on the VPS (all ports 127.0.0.1)"]
-        CFD -->|"sysmlv2.darho.net"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
-        CFD -->|"flexo-auth.darho.net"| AU["auth-service :8082<br/>GET /login -> token"]
-        CFD -->|"pr.darho.net"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
+        CFD -->|"sysmlv2.darho.rw"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
+        CFD -->|"flexo-auth.darho.rw"| AU["auth-service :8082<br/>GET /login -> token"]
+        CFD -->|"pr.darho.rw"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
         PR -->|"projects, branches, commits"| S2
         S2 -->|"JSON <-> RDF, versioning"| L1["flexo-mms-layer1 :8080<br/>branches, commits, diff"]
         AU -->|"users and groups"| LDAP["OpenLDAP"]
@@ -858,9 +865,9 @@ flowchart TB
     CF["Cloudflare edge"] -->|"tunnel"| CFD["cloudflared on VPS"]
 
     subgraph VPS["Docker project 'flexo' on the VPS (all ports 127.0.0.1)"]
-        CFD -->|"sysmlv2.darho.net"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
-        CFD -->|"flexo-auth.darho.net"| AU["auth-service :8082<br/>GET /login -> token"]
-        CFD -->|"pr.darho.net"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
+        CFD -->|"sysmlv2.darho.rw"| S2["flexo-sysmlv2<br/>SysML v2 API :8083"]
+        CFD -->|"flexo-auth.darho.rw"| AU["auth-service :8082<br/>GET /login -> token"]
+        CFD -->|"pr.darho.rw"| PR["Flexo PR Manager :8084<br/>model pull requests + reviews"]
         PR -->|"projects, branches, commits"| S2
         S2 -->|"JSON <-> RDF, versioning"| L1["flexo-mms-layer1 :8080<br/>branches, commits, diff"]
         AU -->|"users and groups"| LDAP["OpenLDAP"]
@@ -872,11 +879,11 @@ flowchart TB
 
 ### Connecting SysML v2 tools
 
-1. Get a token (valid 24 hours) with a Flexo login: `curl -u aline https://flexo-auth.darho.net/login` returns `{"token":"eyJ..."}`.
-2. Call the SysML v2 API with the header `Authorization: Bearer <token>`, for example `GET https://sysmlv2.darho.net/projects`. The standard endpoints apply: `/projects`, `/projects/{id}/branches`, `/projects/{id}/commits`, `/projects/{id}/commits/{commit}/elements`.
-3. People use the PR Manager in the browser at https://pr.darho.net. It is protected by a Cloudflare Access email login; inside it, a Flexo token is pasted in Settings.
+1. Get a token (valid 24 hours) with a Flexo login: `curl -u aline https://flexo-auth.darho.rw/login` returns `{"token":"eyJ..."}`.
+2. Call the SysML v2 API with the header `Authorization: Bearer <token>`, for example `GET https://sysmlv2.darho.rw/projects`. The standard endpoints apply: `/projects`, `/projects/{id}/branches`, `/projects/{id}/commits`, `/projects/{id}/commits/{commit}/elements`.
+3. People use the PR Manager in the browser at https://pr.darho.rw. It is protected by a Cloudflare Access email login; inside it, a Flexo token is pasted in Settings.
 
-The two API addresses are not web pages: `https://sysmlv2.darho.net/` answers 404 (the API has no home page), and the API answers 401 without a token.
+The two API addresses are not web pages: `https://sysmlv2.darho.rw/` answers 404 (the API has no home page), and the API answers 401 without a token.
 
 ### Security changes compared with the OpenMBEE example setup
 
@@ -889,7 +896,7 @@ The two API addresses are not web pages: `https://sysmlv2.darho.net/` answers 40
 | default LDAP users `user01/password1` | users `aline`, `patrick` with random passwords | default passwords are public |
 | PR Manager open | Cloudflare Access email login, no default token | it has no login of its own and shows its default token at `/api/config` |
 
-Checked with `flexo/smoke_test.sh --public`: login returns a token, the API gives no data without a token (HTTP 401), the API lists projects with a token, the PR Manager reaches the API, and `pr.darho.net` requires the Cloudflare login. Daily backup at 03:30 (`backup_flexo.sh`, last 7 kept).
+Checked with `flexo/smoke_test.sh --public`: login returns a token, the API gives no data without a token (HTTP 401), the API lists projects with a token, the PR Manager reaches the API, and `pr.darho.rw` requires the Cloudflare login. Daily backup at 03:30 (`backup_flexo.sh`, last 7 kept).
 
 ### Demo: requirements as a SysML v2 model, change reviewed as a model pull request
 
@@ -962,6 +969,93 @@ sequenceDiagram
 
 ---
 
+## Extension — Jenkins CI/CD
+
+Jenkins is installed as a general CI/CD server for DARHO projects at **https://jenkins.darho.rw**. Each project gets its own folder and jobs; the Requirements Engineering Pipeline is the first one.
+
+| Item | Value |
+|---|---|
+| Jenkins | https://jenkins.darho.rw (version 2.580.2 LTS, Java 21) |
+| First job | https://jenkins.darho.rw/job/requirements-pipeline/job/rtm-publish/ |
+| Pipeline definition | `Jenkinsfile` in this repository (pipeline as code) |
+| Result of the first build | build #1 SUCCESS, commit `d95d8e5`, published to https://rtm.darho.rw |
+
+### Installation
+
+Jenkins runs in Docker on the same VPS (`~/jenkins/docker-compose.yml`):
+
+- image built from `jenkins/jenkins:lts-jdk21`, with the Docker CLI added so jobs can run their steps in containers
+- data (settings, users, job history) in the `jenkins_home` volume, so the container can be upgraded without losing anything
+- port `127.0.0.1:8085`, reachable from the internet only through the Cloudflare tunnel route `jenkins.darho.rw` → `http://127.0.0.1:8085`
+- the Docker socket is mounted, so each job runs in its own container (for example `python:3.12`) with the tools that project needs, and nothing project-specific is installed in Jenkins itself
+- `/srv/rtm-site` is mounted so the job can publish the RTM site served by `rtm-site.service`
+
+### Security
+
+| Setting | Value | Reason |
+|---|---|---|
+| Sign-up | disabled ("Jenkins' own user database", no self-registration) | only accounts created by an administrator can log in |
+| Authorization | matrix-based: Anonymous none; logged-in users Read and Build; administrators everything | jobs can start Docker containers on the server, so only administrators create or change jobs |
+| Accounts | `aline` and the supervisor's account | passwords are sent privately and changed after the first login |
+| Updates | Jenkins core and all plugins updated after installation; security warnings cleared | Jenkins is reachable from the internet |
+| Secrets | none in the repository; the repository is public, so the job needs no credentials | the Baserow token stays in `.env` on the server |
+
+### The pipeline (`Jenkinsfile`)
+
+The job checks GitHub every 15 minutes and runs when `main` has a new commit. A failing stage stops the build, so a broken requirements file is never published.
+
+| Stage | What it does |
+|---|---|
+| Checkout | gets `main` from https://github.com/aline-001/requirements-pipeline |
+| Set up tools | starts a `python:3.12` container and installs StrictDoc 0.30.4 in a virtual environment |
+| StrictDoc check | `strictdoc export`; the build fails if the `.sdoc` files do not parse |
+| Build RTM | `rtm.py` writes the RTM page, `rtm.csv` and `coverage.txt`; the StrictDoc HTML is added under `strictdoc/` |
+| Publish | copies the new site to `/srv/rtm-site/next` and swaps it into `/srv/rtm-site/current`, so the website never shows a half-built state |
+| Post | keeps `rtm.csv` and `coverage.txt` as build artifacts; the last 30 builds are kept |
+
+Other options: 20-minute timeout, no two builds at the same time, timestamps in the console log.
+
+### CI/CD flow
+
+**Code**
+
+```text
+flowchart LR
+    Dev["Engineer or sync PR merged"] -->|"push to main"| GH[("GitHub<br/>requirements-pipeline")]
+    GH -->|"checked every 15 min"| J["Jenkins job rtm-publish<br/>jenkins.darho.rw"]
+    J --> C["python:3.12 container"]
+    C --> S1["StrictDoc check"]
+    S1 -->|ok| S2["Build RTM<br/>rtm.py + strictdoc export"]
+    S1 -->|error| F["Build fails<br/>site unchanged"]
+    S2 --> S3["Publish<br/>/srv/rtm-site/current"]
+    S3 --> W["rtm-site.service :8090"]
+    W -->|"Cloudflare tunnel"| U["https://rtm.darho.rw"]
+```
+
+**Diagram**
+
+```mermaid
+flowchart LR
+    Dev["Engineer or sync PR merged"] -->|"push to main"| GH[("GitHub<br/>requirements-pipeline")]
+    GH -->|"checked every 15 min"| J["Jenkins job rtm-publish<br/>jenkins.darho.rw"]
+    J --> C["python:3.12 container"]
+    C --> S1["StrictDoc check"]
+    S1 -->|ok| S2["Build RTM<br/>rtm.py + strictdoc export"]
+    S1 -->|error| F["Build fails<br/>site unchanged"]
+    S2 --> S3["Publish<br/>/srv/rtm-site/current"]
+    S3 --> W["rtm-site.service :8090"]
+    W -->|"Cloudflare tunnel"| U["https://rtm.darho.rw"]
+```
+
+### Adding another project to Jenkins
+
+1. In Jenkins, **New Item** → **Folder** named after the project.
+2. Inside it, **New Item** → **Pipeline** → *Pipeline script from SCM*, Git, repository URL, branch `*/main`, script path `Jenkinsfile`.
+3. In the project repository, add a `Jenkinsfile` whose `agent { docker { image '...' } }` has the tools that project needs.
+4. For a private repository, add a read-only GitHub token under **Manage Jenkins → Credentials** and select it in the job.
+
+---
+
 ## README — reusing the pipeline on a new project
 
 Full version: `README.md` in the repository.
@@ -972,7 +1066,8 @@ Full version: `README.md` in the repository.
 4. **Database:** recreate the 8 tables above (or export this workspace and import it), keep the Status options exactly, delete test rows. Create the five forms and the views.
 5. **Token:** create a Baserow database token (read all tables, update Requirement), copy `.env.example` to `.env`, fill in `BASEROW_URL`, `BASEROW_TOKEN` and the new table IDs.
 6. **Repository:** copy this repository, empty `docs/sdoc/`, adjust field names at the top of `sync/sync.py` if yours differ, run `python3 sync/sync.py check`. Install StrictDoc with `pipx install strictdoc`.
-7. **Run:** `./run_sync.sh`, merge the Pull Request, run it again (merged requirements become Baselined). Add cron entries for `backup.sh` (03:00), `run_sync.sh` (03:15) and `publish.sh` (every 30 min).
-8. **Publish:** install `deploy/rtm-site.service`, add a tunnel route `rtm.<domain>` → `http://localhost:8090`, run `./publish.sh`.
+7. **Run:** `./run_sync.sh`, merge the Pull Request, run it again (merged requirements become Baselined). Add cron entries for `backup.sh` (03:00) and `run_sync.sh` (03:15).
+8. **Publish:** install `deploy/rtm-site.service` serving `/srv/rtm-site/current`, add a tunnel route `rtm.<domain>` → `http://localhost:8090`. Publishing is automatic through Jenkins (step 11); `./publish.sh` remains for manual builds.
 9. **Code:** tag each implementing function's docstring with `@relation(REQ-xxx, scope=function)`.
 10. **OpenMBEE Flexo (optional):** in `flexo/`, run `./setup.sh` (secrets, image downloads), `docker compose up -d`, `./init.sh` (database and SysML v2 org), `./smoke_test.sh`; add tunnel routes `sysmlv2.<domain>` → `http://localhost:8083`, `flexo-auth.<domain>` → `http://localhost:8082`, `pr.<domain>` → `http://localhost:8084`, and a Cloudflare Access policy for `pr.<domain>`. See `flexo/FLEXO.md`.
+11. **Jenkins:** run Jenkins from `jenkins/jenkins:lts-jdk21` with the Docker CLI, the Docker socket and `/srv/rtm-site` mounted, on `127.0.0.1:8085`; add a tunnel route `jenkins.<domain>` → `http://127.0.0.1:8085`; turn off sign-up and use matrix-based security; create a Pipeline job from this repository's `Jenkinsfile`.
